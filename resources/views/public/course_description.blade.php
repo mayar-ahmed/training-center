@@ -198,12 +198,19 @@
                 <div class="form-group" >
                     <input type="text" class="form-control" placeholder="Enter your code " name = "code" maxlength="10" value="{{old('code')}}" >
                 </div>
-                <div class="form-group" >
-                    <input type="text" class="form-control" placeholder="Enter your rating " name = "rating" maxlength="5" value="{{old('code')}}" >
+                
+                <div class="form-group" id="rating">
+                  <span>★</span>
+                  <span>★</span>
+                  <span>★</span>
+                  <span>★</span>
+                  <span>★</span>
                 </div>
 
-
                 <button type="submit" name="submit" class="btn btn-success">Rate</button>
+                <div>
+                    <input type="text" id="r" class="form-control" placeholder="Enter your rating " name = "rating" maxlength="5" value="{{old('code')}}" >
+                </div>
             </form>
         </div>
         <div class="col-md-8">
@@ -278,6 +285,7 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
+        document.getElementById('r').style.display = 'none';
         $("#de").click(function(){
             $("#details").show();
             $("#objectives").hide();
@@ -303,14 +311,87 @@
             $("#material").show();
         });
 
+        function fillUpTo(j){
+        console.log(j);
+        var stars = document.querySelectorAll('#rating span');
+
+        if(j==-1 && stars[0].getAttribute('checked')==0)
+        {
+            for(var i=0;i<5;i++){
+                stars[i].setAttribute('checked', 0);
+                stars[i].classList.remove('hover');
+            }
+            return;
+        }
+        for(var i=0;i<j;i++){
+            if (stars[i].getAttribute('val') > stars[j-1].getAttribute('val')) {
+                stars[i].classList.remove('hover');
+            }else {
+        stars[i].classList.add('hover');
+                }
+         }
+
+        }
+        
+        function setChecked(j){
+            var stars = document.querySelectorAll('#rating span');
+            k=0;
+            for(i=0;i<j;i++){
+                k++;
+                stars[i].setAttribute('checked',1)
+            }
+            console.log("Rate:");
+            console.log(k);
+            document.getElementById('r').value=k;
+
+        }
+
+        function unsetChecked(){
+            var stars = document.querySelectorAll('#rating span');
+            for(i=0;i<5;i++){
+                stars[i].setAttribute('checked',0)
+            }
+
+        }
+        
        var rate= $('#rating').text();
         rate=Number(rate);
        var starPercentage = (rate / 5) * 100;
         // 3
-         var starPercentageRounded = (Math.round(starPercentage / 10) * 10);
+        var starPercentageRounded = (Math.round(starPercentage / 10) * 10);
 
        $('.stars-inner').css('width',starPercentageRounded);
+        
 
+    var stars = document.querySelectorAll('#rating span');
+
+      for (var i = 0; i <stars.length; i++) {
+        stars[i].setAttribute('checked', 0);
+        stars[i].setAttribute('val', i+1);
+        stars[i].addEventListener('mouseenter',function(){
+            unsetChecked();
+            fillUpTo(parseInt(this.getAttribute('val')));
+        });
+
+        stars[i].addEventListener('mouseleave',function(){
+            console.log("Mouse Leaving Event");
+            fillUpTo(-1);
+        });
+
+        stars[i].addEventListener('click',function(){
+            console.log("Mouse click Event");
+            setChecked(parseInt(this.getAttribute('val')));
+        });
+
+
+        }
+        //stars[i].addEventListener('mouseleave',function(){
+        //console.log("Mouse Leaving Event");
+      //});
+        
+
+
+      
 
 
     });

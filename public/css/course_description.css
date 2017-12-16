@@ -145,4 +145,24 @@ margin: 10px;
     content: "\f005 \f005 \f005 \f005 \f005";
     color: #3dae2f;
 }
+ 
+#rating span {
+  cursor: pointer;
+  border-width: 5px;
+  border-color: black;
+  font-size: 50px;
+  padding: 0 10px;
+  /**color: #fff;**/
+  color:#3dae2f;
+  opacity: .5;
+  display: inline-block;
+}
+ 
+#rating span.hover {
+  color: #3dae2f;
+  opacity: 1;
+  transform: rotateX(0deg);
+  text-shadow: 0 0 30px #ffc;
+}
+
 
