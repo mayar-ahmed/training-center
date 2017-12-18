@@ -141,6 +141,10 @@ margin: 10px;
     width: 0;
 }
 
+.pub{
+    margin-left:250px;
+}
+
 .stars-inner::before {
     content: "\f005 \f005 \f005 \f005 \f005";
     color: #3dae2f;

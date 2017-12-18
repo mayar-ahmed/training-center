@@ -64,11 +64,12 @@
 <div class="container m" >
     <div class="row" style="padding-top: 20px;">
 
-        <h3 class="coursename" style="text-align: center;">{{$course->name}} </h3>
         <h4 id="rating" hidden style="text-align: center;">{{$course->ratings->avg('value')}}</h4>
-        <div class="stars-outer" style="text-align: center;">
+        <h3 class="coursename" style="text-align: center;">{{$course->name}} </h3>
+        <div class="stars-outer pub" style="text-align: center;">
             <div class="stars-inner"></div>
         </div>
+        <br><br>
 
         @if (Session::has('msg'))
             <div class="alert alert-success"> {{Session('msg')}} </div>

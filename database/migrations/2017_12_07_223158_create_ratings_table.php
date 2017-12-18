@@ -20,6 +20,7 @@ class CreateRatingsTable extends Migration
             $table->increments('id');
             $table->float('value');
             $table->integer('course_id')->unsigned();
+            $table->string('registrant');
             $table->timestamps();
 
 

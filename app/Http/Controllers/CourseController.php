@@ -153,7 +153,7 @@ class CourseController extends Controller
 
     public function showall(){
     $course=Course::all();
-    return view('public.courses',['courses' => $courses]);
+    return view('public.courses',['courses' => $course]);
     }
 
     public function deleteCourse($course_id)

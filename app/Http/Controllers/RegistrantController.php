@@ -189,11 +189,20 @@ class RegistrantController extends Controller
                     if(!$reg->confirmed){
                         return redirect()->back()->with('errormsg',"your registration isn't confirmed yet to rate");
                     }
-                    $registrant=Registrant::find($reg->registrant_id);
+
+                    //check if registrant already rated the course
+
+                    #$registrant=Registrant::find($reg->registrant_id);
+                    $user_ratings=  $course->ratings->where('registrant',$reg->registrant_id)->where('course_id',intval($courseID ))->count();
+
+                    if($user_ratings !=0)
+                        return redirect()->back()->with('errormsg',"your already rated this course");
+
 
                     $rate= new Rating();
                     $rate->value=$req->rating;
                     $rate->course_id=$courseID;
+                    $rate->registrant=$registrant->ssn;
                     $rate->save();
 
                     Session::flash('msg', 'Rating Added successfuly');
